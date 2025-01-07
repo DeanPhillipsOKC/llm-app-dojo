@@ -10,7 +10,7 @@ openai = OpenAI()
 
 def generate_response(prompt):
     messages = [
-        {"role": "system", "content": "You are a helpful assistant."},
+        {"role": "system", "content": "You are a helpful assistant that always responds in markdown."},
         {"role": "user", "content": prompt}
     ]
     response = openai.chat.completions.create(
@@ -22,7 +22,7 @@ def generate_response(prompt):
 iface = gr.Interface(
     fn=generate_response,
     inputs=gr.Textbox(lines=10, placeholder="Type your prompt here..."),
-    outputs=gr.Textbox(lines=10),
+    outputs=gr.Markdown(),
     title="GPT-4 Prompt Generator",
     description="Enter a prompt and get a response from GPT-4"
 )
