@@ -13,11 +13,16 @@ def generate_response(prompt):
         {"role": "system", "content": "You are a helpful assistant that always responds in markdown."},
         {"role": "user", "content": prompt}
     ]
-    response = openai.chat.completions.create(
+    stream = openai.chat.completions.create(
         model="gpt-4o-mini",
-        messages=messages
+        messages=messages, 
+        stream=True
     )
-    return response.choices[0].message.content
+    result = ""
+    for chunk in stream:
+        result += chunk.choices[0].delta.content or ""
+        yield result
+
 
 iface = gr.Interface(
     fn=generate_response,
