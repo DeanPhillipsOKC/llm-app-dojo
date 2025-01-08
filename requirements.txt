@@ -2,3 +2,4 @@ bs4
 openai
 gradio
 python-dotenv
+pydub
